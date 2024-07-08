@@ -3,7 +3,7 @@ import { debounce } from "lodash";
 import styles from "./searchPage.module.css";
 
 function SearchPage (){
-    const [ query, setQuery] = useState('');
+    const [ inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [ error, setIsError ] = useState(null);
     const [results, setResults] = useState([]);
@@ -40,11 +40,11 @@ function SearchPage (){
     }, 500), [cachedData])
 
     useEffect(() => {
-        handleSearch(query);
-    }, [query, handleSearch]);
+        handleSearch(inputValue);
+    }, [inputValue, handleSearch]);
 
     const handleInputChange = (e) => {
-        setQuery(e.target.value);
+        setInputValue(e.target.value);
         setCurrentPage(1);
     }
 
@@ -62,7 +62,7 @@ function SearchPage (){
     const displayResult = results.slice(0, currentPage*dataPerPage);
     return (
         <div className={styles.formOut}>
-            <input type="text" value={query} onChange={handleInputChange} placeholder="Search ...  "/>
+            <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Search ...  "/>
             {isLoading &&
             <div className={styles.adjustLoading}>
                 <div className="spinner-border bg-light" role="status">
